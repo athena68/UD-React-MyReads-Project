@@ -1,13 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import BookShelfChanger from "./BookShelfChanger";
 
-const Book = (props) => {
-  const { image, title, author } = props;
-
-  //TODO: handle BookShelf Changer
-
+const Book = ({ book, onUpdateBookshelf }) => {
   return (
-    <li>
+    <li key={book.id}>
       <div className="book">
         <div className="book-top">
           <div
@@ -15,33 +12,25 @@ const Book = (props) => {
             style={{
               width: 128,
               height: 193,
-              backgroundImage: `url(${image})`,
+              backgroundImage: `url(${book.image})`,
             }}
           ></div>
-          <div className="book-shelf-changer">
-            <select>
-              <option value="none" disabled>
-                Move to...
-              </option>
-              <option value="currentlyReading">Currently Reading</option>
-              <option value="wantToRead">Want to Read</option>
-              <option value="read">Read</option>
-              <option value="none">None</option>
-            </select>
-          </div>
+          <BookShelfChanger
+            bookId={book.id}
+            onHandleChange={onUpdateBookshelf}
+          />
         </div>
 
-        <div className="book-title">{title}</div>
-        <div className="book-authors">{author}</div>
+        <div className="book-title">{book.title}</div>
+        <div className="book-authors">{book.author}</div>
       </div>
     </li>
   );
 };
 
 Book.propTypes = {
-  image: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
+  book: PropTypes.object.isRequired,
+  onUpdateBookshelf: PropTypes.func.isRequired,
 };
 
 export default Book;
