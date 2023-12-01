@@ -2,11 +2,13 @@ import "./App.css";
 import MainPage from "./MainPage";
 import SearchPage from "./SearchPage";
 import { Routes, Route } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import * as BooksAPI from "./BooksAPI";
 
-//FIXME: need to get book data from server
-const bookData = [
+//Dummy data for testing purpose only
+
+/*const bookData = [
   {
     id: "0a",
     image:
@@ -64,21 +66,29 @@ const bookData = [
     shelf: "wantToRead",
   },
 ];
+*/
 
 function App() {
-  // let navigate = useNavigate();
   const [bookshelfState, setBookshelfState] = useState([]);
+  const [bookData, setBookData] = useState([]);
 
   useEffect(() => {
-    let initialBookshelfState = [];
+    const getBooks = async () => {
+      const res = await BooksAPI.getAll();
+      setBookData(res);
 
-    bookData.forEach((book) => {
-      let newBookState = { id: `${book.id}`, shelf: `${book.shelf}` };
+      let initialBookshelfState = [];
 
-      initialBookshelfState.push(newBookState);
-    });
+      res.forEach((book) => {
+        let newBookState = { id: `${book.id}`, shelf: `${book.shelf}` };
 
-    setBookshelfState(initialBookshelfState);
+        initialBookshelfState.push(newBookState);
+      });
+
+      setBookshelfState(initialBookshelfState);
+    };
+
+    getBooks();
   }, []);
 
   const updateBookshelf = (bookId, newBookshelf) => {
@@ -91,8 +101,6 @@ function App() {
 
     setBookshelfState(newBookshelfState);
   };
-
-  console.log(bookshelfState);
 
   return (
     <div className="app">
@@ -123,49 +131,11 @@ function App() {
         />
       </Routes>
 
-      <Link to="/" className="open-search">
-        Add a book
-      </Link>
+      <div className="open-search">
+        <Link to="/search">Add a book</Link>
+      </div>
     </div>
   );
-
-  // return (
-  //   <div className="app">
-  //     <div className="list-books-title">
-  //       <h1>MyReads</h1>
-  //     </div>
-  //     {showSearchPage ? (
-  //       <SearchPage
-  //         handleShowState={handleShowState}
-  //         showState={showSearchPage}
-  //         books={bookData}
-  //         onUpdateBookshelfState={updateBookshelf}
-  //       />
-  //     ) : (
-  //       <MainPage
-  //         books={bookData}
-  //         bookshelfState={bookshelfState}
-  //         updateBookshelf={updateBookshelf}
-  //       />
-  //     )}
-  //     <div className="open-search">
-  //       <a onClick={() => setShowSearchpage(!showSearchPage)}>Add a book</a>
-  //     </div>
-  //   </div>
-  // );
 }
-
-// function App() {
-//   let navigate = useNavigate();
-
-//   return (
-//     <div className="app">
-//       <Routes>
-//         <Route exact path="/" element={<MainPage />} />
-//         <Route path="/search" element={<SearchPage />} />
-//       </Routes>
-//     </div>
-//   );
-// }
 
 export default App;

@@ -9,7 +9,7 @@ const BookShelf = ({
   books,
 }) => {
   const bookshelfOptions = [
-    { value: "currentlyReading", label: "Reading" },
+    { value: "currentlyReading", label: "Currently Reading" },
     { value: "wantToRead", label: "Want to Read" },
     { value: "read", label: "Read" },
     { value: "none", label: "None" },
@@ -36,7 +36,11 @@ const BookShelf = ({
       <div className="bookshelf-books">
         <ol className="books-grid">
           {bookOnShelfs.map((book) => (
-            <Book book={book} onUpdateBookshelf={onUpdateBookshelfState} />
+            <Book
+              key={book.id}
+              book={book}
+              onUpdateBookshelf={onUpdateBookshelfState}
+            />
           ))}
         </ol>
       </div>

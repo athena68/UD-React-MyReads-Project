@@ -4,7 +4,7 @@ import BookShelfChanger from "./BookShelfChanger";
 
 const Book = ({ book, onUpdateBookshelf }) => {
   return (
-    <li key={book.id}>
+    <li>
       <div className="book">
         <div className="book-top">
           <div
@@ -12,7 +12,7 @@ const Book = ({ book, onUpdateBookshelf }) => {
             style={{
               width: 128,
               height: 193,
-              backgroundImage: `url(${book.image})`,
+              backgroundImage: `url(${book.imageLinks["smallThumbnail"]})`,
             }}
           ></div>
           <BookShelfChanger

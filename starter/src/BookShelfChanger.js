@@ -2,7 +2,6 @@ import React from "react";
 
 const BookShelfChanger = ({ bookId, onHandleChange }) => {
   const onHandleBookshelfChange = (event) => {
-    console.log(event.target.value);
     onHandleChange(bookId, event.target.value);
   };
 
