@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import BookShelf from "./BookShelf";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const MainPage = ({ books, bookshelfState, updateBookshelf }) => {
   return (

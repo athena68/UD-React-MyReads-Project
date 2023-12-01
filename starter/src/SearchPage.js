@@ -9,9 +9,9 @@ const SearchPage = ({ books, onUpdateBookshelfState }) => {
     setQuery(query.trim());
   };
 
-  const clearQuery = () => {
-    updateQuery("");
-  };
+  // const clearQuery = () => {
+  //   updateQuery("");
+  // };
 
   const showingBooks =
     query === ""
@@ -23,16 +23,16 @@ const SearchPage = ({ books, onUpdateBookshelfState }) => {
   return (
     <div className="search-books">
       <div className="search-books-bar">
-        {/* <Link to="/" className="close-search">
+        <Link to="/" className="close-search">
           Close
-        </Link> */}
-        <a
+        </Link>
+        {/* <a
           href="/"
           className="close-search"
           onClick={() => handleShowState(!showState)}
         >
           Close
-        </a>
+        </a> */}
         <div className="search-books-input-wrapper">
           <input
             type="text"

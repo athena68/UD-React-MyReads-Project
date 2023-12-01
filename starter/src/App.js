@@ -1,7 +1,8 @@
 import "./App.css";
 import MainPage from "./MainPage";
 import SearchPage from "./SearchPage";
-import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 //FIXME: need to get book data from server
@@ -65,7 +66,7 @@ const bookData = [
 ];
 
 function App() {
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
   const [bookshelfState, setBookshelfState] = useState([]);
 
   useEffect(() => {
@@ -122,15 +123,9 @@ function App() {
         />
       </Routes>
 
-      <div className="open-search">
-        <a
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          Add a book
-        </a>
-      </div>
+      <Link to="/" className="open-search">
+        Add a book
+      </Link>
     </div>
   );
 
