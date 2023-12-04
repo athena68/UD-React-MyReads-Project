@@ -12,7 +12,9 @@ const Book = ({ book, onUpdateBookshelf }) => {
             style={{
               width: 128,
               height: 193,
-              backgroundImage: `url(${book.imageLinks["smallThumbnail"]})`,
+              backgroundImage: book.hasOwnProperty("imageLinks")
+                ? `url(${book.imageLinks["smallThumbnail"]})`
+                : `none`,
             }}
           ></div>
           <BookShelfChanger book={book} onHandleChange={onUpdateBookshelf} />
