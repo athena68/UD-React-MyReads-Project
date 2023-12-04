@@ -1,3 +1,2 @@
-starter/node_modules
-starter/src/App_bk.js
-starter/build
+app/node_modules
+app/build

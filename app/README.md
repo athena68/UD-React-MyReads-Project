@@ -6,6 +6,7 @@ This is a React App to managing your reads by separate them into many categories
 
 To get started developing right away:
 
+- go to source code folder `cd app`
 - install all project dependencies with `npm install`
 - start the development server with `npm start`
 
