@@ -81,17 +81,14 @@ function App() {
 
   const updateBookshelf = (book, newBookshelf) => {
     const update = async () => {
-      await BooksAPI.update(book, newBookshelf);
+      const res = await BooksAPI.update(book, newBookshelf);
+      if (res !== undefined) {
+        const res = await BooksAPI.getAll();
+        setBookData(res);
+      }
     };
 
     update();
-
-    //Update bookshelf data
-    const getBooks = async () => {
-      const res = await BooksAPI.getAll();
-      setBookData(res);
-    };
-    getBooks();
   };
 
   return (

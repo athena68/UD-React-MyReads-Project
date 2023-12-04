@@ -9,9 +9,16 @@ const SearchPage = ({ onUpdateBookshelfState }) => {
   const updateQuery = (query) => {
     const searchBook = async () => {
       const res = await BooksAPI.search(query.trim(), 20);
-      setSearchBooks(res);
+      if (res !== undefined) {
+        if (res.error) {
+          setSearchBooks([]);
+        } else {
+          setSearchBooks(res);
+        }
+      } else {
+        setSearchBooks([]);
+      }
     };
-
     searchBook();
   };
 
@@ -31,13 +38,17 @@ const SearchPage = ({ onUpdateBookshelfState }) => {
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {searchedBooks.map((book) => (
-            <Book
-              key={book.id}
-              book={book}
-              onUpdateBookshelf={onUpdateBookshelfState}
-            />
-          ))}
+          {!searchedBooks || searchedBooks.length === 0 ? (
+            <div></div>
+          ) : (
+            searchedBooks.map((book) => (
+              <Book
+                key={book.id}
+                book={book}
+                onUpdateBookshelf={onUpdateBookshelfState}
+              />
+            ))
+          )}
         </ol>
       </div>
     </div>
