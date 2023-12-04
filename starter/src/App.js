@@ -69,37 +69,29 @@ import * as BooksAPI from "./BooksAPI";
 */
 
 function App() {
-  const [bookshelfState, setBookshelfState] = useState([]);
   const [bookData, setBookData] = useState([]);
 
   useEffect(() => {
     const getBooks = async () => {
       const res = await BooksAPI.getAll();
       setBookData(res);
-
-      let initialBookshelfState = [];
-
-      res.forEach((book) => {
-        let newBookState = { id: `${book.id}`, shelf: `${book.shelf}` };
-
-        initialBookshelfState.push(newBookState);
-      });
-
-      setBookshelfState(initialBookshelfState);
     };
-
     getBooks();
   }, []);
 
-  const updateBookshelf = (bookId, newBookshelf) => {
-    const newBookshelfState = bookshelfState.map((state) => {
-      if (state.id === bookId) {
-        state.shelf = newBookshelf;
-      }
-      return state;
-    });
+  const updateBookshelf = (book, newBookshelf) => {
+    const update = async () => {
+      await BooksAPI.update(book, newBookshelf);
+    };
 
-    setBookshelfState(newBookshelfState);
+    update();
+
+    //Update bookshelf data
+    const getBooks = async () => {
+      const res = await BooksAPI.getAll();
+      setBookData(res);
+    };
+    getBooks();
   };
 
   return (
@@ -113,11 +105,7 @@ function App() {
           exact
           path="/"
           element={
-            <MainPage
-              books={bookData}
-              bookshelfState={bookshelfState}
-              updateBookshelf={updateBookshelf}
-            />
+            <MainPage books={bookData} updateBookshelf={updateBookshelf} />
           }
         />
         <Route

@@ -1,24 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Book from "./Book";
+import * as BooksAPI from "./BooksAPI";
 
-const SearchPage = ({ books, onUpdateBookshelfState }) => {
-  const [query, setQuery] = useState("");
+const SearchPage = ({ onUpdateBookshelfState }) => {
+  const [searchedBooks, setSearchBooks] = useState([]);
 
   const updateQuery = (query) => {
-    setQuery(query.trim());
+    const searchBook = async () => {
+      const res = await BooksAPI.search(query.trim(), 20);
+      setSearchBooks(res);
+    };
+
+    searchBook();
   };
-
-  // const clearQuery = () => {
-  //   updateQuery("");
-  // };
-
-  const showingBooks =
-    query === ""
-      ? []
-      : books.filter((book) =>
-          book.title.toLowerCase().includes(query.toLowerCase())
-        );
 
   return (
     <div className="search-books">
@@ -26,26 +21,22 @@ const SearchPage = ({ books, onUpdateBookshelfState }) => {
         <Link to="/" className="close-search">
           Close
         </Link>
-        {/* <a
-          href="/"
-          className="close-search"
-          onClick={() => handleShowState(!showState)}
-        >
-          Close
-        </a> */}
         <div className="search-books-input-wrapper">
           <input
             type="text"
             placeholder="Search by title, author, or ISBN"
-            value={query}
             onChange={(event) => updateQuery(event.target.value)}
           />
         </div>
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {showingBooks.map((book) => (
-            <Book book={book} onUpdateBookshelf={onUpdateBookshelfState} />
+          {searchedBooks.map((book) => (
+            <Book
+              key={book.id}
+              book={book}
+              onUpdateBookshelf={onUpdateBookshelfState}
+            />
           ))}
         </ol>
       </div>

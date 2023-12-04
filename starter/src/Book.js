@@ -15,10 +15,7 @@ const Book = ({ book, onUpdateBookshelf }) => {
               backgroundImage: `url(${book.imageLinks["smallThumbnail"]})`,
             }}
           ></div>
-          <BookShelfChanger
-            bookId={book.id}
-            onHandleChange={onUpdateBookshelf}
-          />
+          <BookShelfChanger book={book} onHandleChange={onUpdateBookshelf} />
         </div>
 
         <div className="book-title">{book.title}</div>

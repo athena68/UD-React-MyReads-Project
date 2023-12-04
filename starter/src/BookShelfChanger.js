@@ -1,8 +1,8 @@
 import React from "react";
 
-const BookShelfChanger = ({ bookId, onHandleChange }) => {
+const BookShelfChanger = ({ book, onHandleChange }) => {
   const onHandleBookshelfChange = (event) => {
-    onHandleChange(bookId, event.target.value);
+    onHandleChange(book, event.target.value);
   };
 
   return (

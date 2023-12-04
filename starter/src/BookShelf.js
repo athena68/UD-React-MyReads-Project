@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 
 const BookShelf = ({
   showingBookshelfState,
-  currentBookshelfState,
   onUpdateBookshelfState,
   books,
 }) => {
@@ -19,15 +18,8 @@ const BookShelf = ({
     return option.value === showingBookshelfState;
   });
 
-  let bookOnShelfs = [];
-
-  currentBookshelfState.forEach((state) => {
-    books.map((book) => {
-      if (book.id === state.id && state.shelf === showingBookshelfState) {
-        bookOnShelfs.push(book);
-      }
-      return book;
-    });
+  const bookOnShelfs = books.filter((book) => {
+    return book.shelf === showingBookshelfState;
   });
 
   return (
@@ -49,7 +41,6 @@ const BookShelf = ({
 };
 
 BookShelf.propTypes = {
-  currentBookshelfState: PropTypes.array.isRequired,
   showingBookshelfState: PropTypes.string.isRequired,
   books: PropTypes.array.isRequired,
   onUpdateBookshelfState: PropTypes.func.isRequired,
