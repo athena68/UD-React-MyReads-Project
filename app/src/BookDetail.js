@@ -12,7 +12,7 @@ const BookDetail = () => {
       setBook(res);
     };
     getBook();
-  }, []);
+  });
 
   let thumbnailImage = book.hasOwnProperty("imageLinks")
     ? `url(${book.imageLinks["thumbnail"]})`
