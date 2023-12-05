@@ -1,8 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import BookShelfChanger from "./BookShelfChanger";
+import { Link } from "react-router-dom";
 
 const Book = ({ book, onUpdateBookshelf }) => {
+  let thumbnailImage = book.hasOwnProperty("imageLinks")
+    ? `url(${book.imageLinks["smallThumbnail"]})`
+    : "none";
+  let authors = book.hasOwnProperty("authors") ? book.authors.join(", ") : "";
+
   return (
     <li>
       <div className="book">
@@ -12,16 +18,15 @@ const Book = ({ book, onUpdateBookshelf }) => {
             style={{
               width: 128,
               height: 193,
-              backgroundImage: book.hasOwnProperty("imageLinks")
-                ? `url(${book.imageLinks["smallThumbnail"]})`
-                : `none`,
+              backgroundImage: thumbnailImage,
             }}
           ></div>
           <BookShelfChanger book={book} onHandleChange={onUpdateBookshelf} />
         </div>
-
-        <div className="book-title">{book.title}</div>
-        <div className="book-authors">{book.author}</div>
+        <div className="book-title">
+          <Link to={`/books/${book.id}`}>{book.title}</Link>
+        </div>
+        <div className="book-authors">{authors}</div>
       </div>
     </li>
   );

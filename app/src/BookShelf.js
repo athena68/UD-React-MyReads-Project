@@ -21,7 +21,6 @@ const BookShelf = ({
   const bookOnShelfs = books.filter((book) => {
     return book.shelf === showingBookshelfState;
   });
-
   return (
     <div className="bookshelf">
       <h2 className="bookshelf-title">{currentBookshelfOption[0].label}</h2>

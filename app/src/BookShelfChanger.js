@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const BookShelfChanger = ({ book, onHandleChange }) => {
   const onHandleBookshelfChange = (event) => {
@@ -7,7 +8,7 @@ const BookShelfChanger = ({ book, onHandleChange }) => {
 
   return (
     <div className="book-shelf-changer">
-      <select onChange={onHandleBookshelfChange}>
+      <select value={book.shelf} onChange={onHandleBookshelfChange}>
         <option value="none" disabled>
           Move to...
         </option>
@@ -18,6 +19,11 @@ const BookShelfChanger = ({ book, onHandleChange }) => {
       </select>
     </div>
   );
+};
+
+BookShelfChanger.propTypes = {
+  books: PropTypes.array.isRequired,
+  onHandleChange: PropTypes.func.isRequired,
 };
 
 export default BookShelfChanger;

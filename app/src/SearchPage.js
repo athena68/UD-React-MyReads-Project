@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Book from "./Book";
 import * as BooksAPI from "./BooksAPI";
+import debounce from "lodash.debounce";
 
 const SearchPage = ({ onUpdateBookshelfState }) => {
   const [searchedBooks, setSearchBooks] = useState([]);
@@ -19,7 +20,8 @@ const SearchPage = ({ onUpdateBookshelfState }) => {
         setSearchBooks([]);
       }
     };
-    searchBook();
+    const debounceSearchBooks = debounce(() => searchBook(), 200);
+    debounceSearchBooks();
   };
 
   return (
