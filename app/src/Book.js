@@ -9,6 +9,9 @@ const Book = ({ book, onUpdateBookshelf }) => {
     : "none";
   let authors = book.hasOwnProperty("authors") ? book.authors.join(", ") : "";
 
+  if (!book.hasOwnProperty("shelf")) {
+    book.shelf = "none";
+  }
   return (
     <li>
       <div className="book">

@@ -22,7 +22,7 @@ const BookShelfChanger = ({ book, onHandleChange }) => {
 };
 
 BookShelfChanger.propTypes = {
-  books: PropTypes.array.isRequired,
+  book: PropTypes.object.isRequired,
   onHandleChange: PropTypes.func.isRequired,
 };
 

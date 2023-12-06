@@ -4,21 +4,29 @@ import Book from "./Book";
 import * as BooksAPI from "./BooksAPI";
 import debounce from "lodash.debounce";
 
-const SearchPage = ({ onUpdateBookshelfState }) => {
+const SearchPage = ({ books, onUpdateBookshelfState }) => {
   const [searchedBooks, setSearchBooks] = useState([]);
 
   const updateQuery = (query) => {
     const searchBook = async () => {
+      let lSearchedBooks = [];
       const res = await BooksAPI.search(query.trim(), 20);
       if (res !== undefined) {
-        if (res.error) {
-          setSearchBooks([]);
-        } else {
-          setSearchBooks(res);
+        if (!res.error) {
+          lSearchedBooks = res;
         }
-      } else {
-        setSearchBooks([]);
       }
+      setSearchBooks(
+        lSearchedBooks.map((sb) => {
+          books.map((b) => {
+            if (b.id === sb.id) {
+              sb.shelf = b.shelf;
+            }
+            return b;
+          });
+          return sb;
+        })
+      );
     };
     const debounceSearchBooks = debounce(() => searchBook(), 200);
     debounceSearchBooks();
